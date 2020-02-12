@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import * as usersActions from '../../redux/actions/usersActions';
 import Spinner from '../General/Spinner';
 import Fatal from '../General/Fatal';
-import Table from './Table';
+import Table1 from './Table1';
 
 class Users extends Component{
 
@@ -19,13 +19,12 @@ class Users extends Component{
       if (this.props.error) {
         return <Fatal message= {this.props.error }/>;
       }
-      return <Table/>;
+      return <Table1/>;
       
   } 
   render () {
     return (
       <div>
-        <h2>Usuarios</h2>
         { this.putContent() } 
       </div>
     );
