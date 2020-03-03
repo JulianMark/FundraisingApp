@@ -17,14 +17,21 @@ import ViewColumnIcon from '@material-ui/icons/ViewColumn';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ClearIcon from '@material-ui/icons/Clear';
 
-const MaterialTableDemo = (props) => {
+const Table = (props) => {
   const [state, setState] = React.useState({
     columns: [
-      { title: 'Name', field: 'name' },
-      { title: 'E mail', field: 'email' },
-      { title: 'Website', field: 'website' },
+      { title: 'Nombre', field: 'name' },
+      { title: 'Apellido', field: 'lastName' },
+      { title: 'Cant. Donaciones', field: 'countdonations' },
+      { title: 'Total Donaciones', field: 'amountdonations' },
+      { title: 'Hs. Prod', field: 'hsprod' },
+      { title: 'Hs. No Prod.', field: 'hsnoprod' },
+      { title: 'Prom. Media', field: 'prommed' },
+      { title: 'Prom. Cant', field: 'promcount' },
+      { title: 'Ingreso', field: 'beginning' },
+      { title: 'Egreso', field: 'final' },
     ],
-    data: props.users
+    data: props.employeeList
   });
 
   return (
@@ -93,7 +100,7 @@ const MaterialTableDemo = (props) => {
 }
 
 const mapStateToProps = (reducers) => {
-  return reducers.usersReducer;
+  return reducers.campaignsReducer;
 }
 
-export default connect(mapStateToProps)(MaterialTableDemo);
+export default connect(mapStateToProps)(Table);

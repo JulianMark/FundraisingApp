@@ -12,16 +12,16 @@ class Users extends Component{
   }
 
   putContent = () => {
-      if (this.props.loading) {
-        return <Spinner/>; 
-      }
+    if (this.props.loading) {
+      return <Spinner/>; 
+    }
 
-      if (this.props.error) {
-        return <Fatal message= {this.props.error }/>;
-      }
-      return <Table1/>;
-      
+    if (this.props.error) {
+      return <Fatal message= {this.props.error }/>;
+    }
+    return <Table1/>; 
   } 
+  
   render () {
     return (
       <div>
@@ -32,7 +32,7 @@ class Users extends Component{
 }
 
 const mapStateToProps = (reducers) => {
-    return reducers.usersReducer;
+  return reducers.usersReducer;
 }
 
 export default connect(mapStateToProps, usersActions)(Users);
