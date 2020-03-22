@@ -22,26 +22,26 @@ const ccyFormat = (num) => {
 }
 
 
-function createRow(desc, qty, unit) {
+/* function createRow(desc, qty, unit) {
   const price = priceRow(qty, unit);
   return { desc, qty, unit, price };
-}
+} */
 
 function subtotal(items) {
   return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
 }
 
 
-const invoiceSubtotal = subtotal(rows);
+/* const invoiceSubtotal = subtotal(rows);
 const invoiceTaxes = TAX_RATE * invoiceSubtotal;
-const invoiceTotal = invoiceTaxes + invoiceSubtotal;
+const invoiceTotal = invoiceTaxes + invoiceSubtotal; */
 
 const SpanningTable = (props) => {
   const classes = useStyles();
   console.log(props);
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="spanning table">
+      {/* <Table className={classes.table} aria-label="spanning table">
         <TableHead>
           <TableRow>
             <TableCell align="center" colSpan={3}>
@@ -82,7 +82,7 @@ const SpanningTable = (props) => {
             <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
           </TableRow>
         </TableBody>
-      </Table>
+      </Table> */}
     </TableContainer>
   );
   

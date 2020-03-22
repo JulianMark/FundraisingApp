@@ -9,8 +9,11 @@ const Menu = () => (
         <Link to= '/work'>
             Tareas
         </Link>
-        <Link to= '/campaigns'>
-            Campañas
+        <Link to= '/select'>
+            Prueba Select
+        </Link>
+        <Link to= '/addDonation' style={{ textDecoration: 'none' }}>
+            Agregar donación
         </Link>
     </nav>
 );
