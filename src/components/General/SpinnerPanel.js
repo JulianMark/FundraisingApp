@@ -16,12 +16,12 @@ export default function SimpleBackdrop() {
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {
-    setOpen(!open);
+    setOpen(false);
   };
 
   return (
     <div>
-      <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
+      <Backdrop className={classes.backdrop} open={true} onClick={handleClose}>
         <CircularProgress color="primary" />
       </Backdrop>
     </div>

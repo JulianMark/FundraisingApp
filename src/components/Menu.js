@@ -17,5 +17,5 @@ const Menu = () => (
         </Link>
     </nav>
 );
-
+ 
 export default Menu;

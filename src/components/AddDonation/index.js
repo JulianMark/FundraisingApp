@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import * as AddDonationActions from '../../redux/actions/addDonationActions';
+import * as AddDonationActions from '../../redux/actions/donationActions';
 import ResultMessage from '../General/ResultMessage';
 import Spinner from '../General/SpinnerPanel';
 //import Fatal from '../General/Fatal';
@@ -14,9 +14,6 @@ class AddDonation extends Component{
   }
 
   putContent = () => {
-    if (this.props.loading) {
-      return <Spinner/>; 
-    }
     /*
     if (this.props.error) {
       return <Fatal message= {this.props.error }/>;
@@ -25,6 +22,10 @@ class AddDonation extends Component{
   } 
 
   putResult = () => {
+    if (this.props.loading) {
+      console.log(this.props.loading);
+      return <Spinner/>; 
+    }
     if (this.props.error) {
       return <ResultMessage severity= "error" message= "No se pudo agregar la donación"/>;
     } 

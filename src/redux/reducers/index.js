@@ -2,15 +2,19 @@ import { combineReducers} from 'redux';
 import usersReducer from './usersReducer';
 import postsReducer from './postsReducer';
 import campaignsReducer from './campaignsReducer';
-import gendersReducer from './gendersReducer'; 
-import payTypesReducer from './payTypesReducer';
-import addDonationReducer from './addDonationReducer';
+import gendersreducer from './commonreducers/gendersreducer'; 
+import paytypesreducer from './paytypesreducer';
+import donationreducer from './donationreducer';
+import sessionreducer from './sessionreducer';
+import dnireducer from './commonreducers/dnireducer';
 
 export default combineReducers({
     usersReducer,
     postsReducer,
     campaignsReducer,
-    gendersReducer,
-    payTypesReducer,
-    addDonationReducer,
+    gendersreducer,
+    paytypesreducer,
+    donationreducer,
+    sessionreducer,
+    dnireducer,
 });

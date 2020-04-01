@@ -8,7 +8,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import TelegramIcon from '@material-ui/icons/Telegram';
 
-import * as addDonationActions from '../../redux/actions/addDonationActions';
+import * as addDonationActions from '../../redux/actions/donationActions';
 import * as gendersActions from '../../redux/actions/gendersActions';
 import * as payTypesActions from '../../redux/actions/payTypesActions';
 
@@ -46,7 +46,7 @@ class Form extends Component {
 
     onNameChange = (e) => {
         this.props.changeName(e.target.value);
-    }
+    } 
 
     onLastnameChange = (e) => {
         this.props.changeLastname(e.target.value);
