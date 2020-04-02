@@ -7,6 +7,7 @@ import paytypesreducer from './paytypesreducer';
 import donationreducer from './donationreducer';
 import sessionreducer from './sessionreducer';
 import dnireducer from './commonreducers/dnireducer';
+import campaignreducer from './campaignreducer';
 
 export default combineReducers({
     usersReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
     donationreducer,
     sessionreducer,
     dnireducer,
+    campaignreducer,
 });

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {changeGender, obtainGenders} from '../../../../redux/actions/commonactions/gendersActions';
-import { obtainGenderList, obtainIdGender } from '../../../../redux/reducers/commonreducers/gendersreducer';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
@@ -16,6 +14,9 @@ import {
   TextField
 } from '@material-ui/core';
 
+import { obtainLocationList, obtainIdLocation } from '../../../../redux/reducers/campaignreducer';
+import { obtainLocations, changeLocation } from '../../../../redux/actions/campaignActions';
+
 const useStyles = makeStyles(() => ({
   root: {}
 }));
@@ -24,25 +25,37 @@ const AccountDetails = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
-  const genderList = useSelector(obtainGenderList);
-  const genderId = useSelector(obtainIdGender);
-  console.log(genderList);
+
+  const locations = useSelector(obtainLocationList);
+  const locationId = useSelector(obtainIdLocation);
 
   const dispatch = useDispatch();
+  
+  React.useEffect(() => {
+    if (!locations.length) {
+      dispatch(obtainLocations());
+    }
+  }, [locations, dispatch]);
 
   React.useEffect(() => {
-    if (!genderList.length) {
-      dispatch(obtainGenders());
+    if (locations.length && locationId === "") {
+        dispatch(changeLocation(locations[0].id));
     }
-  }, [genderList, dispatch]);
+  }, [dispatch, locationId, locations]);
+
+  const handleLocationChange = event => {
+    dispatch(changeLocation(event.target.value));
+  } 
 
   const [values, setValues] = useState({
-    firstName: 'Shen',
-    lastName: 'Zhi',
-    email: 'shen.zhi@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
+    location: 'Cordoba',
+    osc: 'Soles',
+    campaignType: 'f2f',
+    campaignModality: 'via publica',
+    campaignName: 'TT',
+    goal: '100',
+    coach: 'Dani',
+    teamLeader: 'vo'
   });
 
   const handleChange = event => {
@@ -51,10 +64,6 @@ const AccountDetails = props => {
       [event.target.name]: event.target.value
     });
   };
-
-  const handleGenderChange = event => {
-    dispatch(changeGender(event.target.value));
-  }
 
   return (
     <Card
@@ -66,8 +75,8 @@ const AccountDetails = props => {
         noValidate
       >
         <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
+          subheader="Información de la campaña"
+          title="Campaña"
         />
         <Divider />
         <CardContent>
@@ -77,18 +86,64 @@ const AccountDetails = props => {
           >
             <Grid
               item
-              md={6}
+              md={4}
               xs={12}
             >
               <TextField
                 fullWidth
-                helperText="Please specify the first name"
-                label="First name"
+                helperText="Seleccione la plaza"
+                label="Plaza"
                 margin="dense"
-                name="firstName"
+                name="location"
+                onChange={handleLocationChange}
+                required
+                select
+                // eslint-disable-next-line react/jsx-sort-props
+                SelectProps={{ native: true }}
+                value={locationId}
+                variant="outlined"
+              >
+                {locations.map(option => (
+                  <option
+                    key={option.id}
+                    value={option.description}
+                  >
+                    {option.description}
+                  </option>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid
+              item
+              md={4}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                helperText="Seleccione la OSC"
+                label="OSC"
+                margin="dense"
+                name="osc"
                 onChange={handleChange}
                 required
-                value={values.firstName}
+                value={values.osc}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid
+              item
+              md={4}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                helperText= "Seleccione tipo de campaña"
+                label="Tipo de campaña"
+                margin="dense"
+                name="campaignType"
+                onChange={handleChange}
+                required
+                value={values.campaignType}
                 variant="outlined"
               />
             </Grid>
@@ -99,12 +154,12 @@ const AccountDetails = props => {
             >
               <TextField
                 fullWidth
-                label="Last name"
+                helperText= "Seleccione modalidad de campaña"
+                label="Modalidad de campaña"
                 margin="dense"
-                name="lastName"
+                name="campaignModality"
                 onChange={handleChange}
-                required
-                value={values.lastName}
+                value={values.campaignModality}
                 variant="outlined"
               />
             </Grid>
@@ -115,12 +170,28 @@ const AccountDetails = props => {
             >
               <TextField
                 fullWidth
-                label="Email Address"
+                helperText= "Ingrese la meta de campaña"
+                label="Meta de campaña"
                 margin="dense"
-                name="email"
+                name="goal"
                 onChange={handleChange}
-                required
-                value={values.email}
+                value={values.goal}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid
+              item
+              md={12}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                helperText= "Ingrese nombre de campaña"
+                label="Nombre de campaña"
+                margin="dense"
+                name="campaignName"
+                onChange={handleChange}
+                value={values.campaignName}
                 variant="outlined"
               />
             </Grid>
@@ -131,16 +202,32 @@ const AccountDetails = props => {
             >
               <TextField
                 fullWidth
-                label="Phone Number"
+                helperText= "Ingrese al coordinador de campaña"
+                label="Coordinador de campaña"
                 margin="dense"
-                name="phone"
+                name="coach"
                 onChange={handleChange}
-                type="number"
-                value={values.phone}
+                value={values.coach}
                 variant="outlined"
               />
             </Grid>
             <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                helperText= "Ingrese Team Leader de campaña"
+                label="Team leader de campaña"
+                margin="dense"
+                name="teamLeader"
+                onChange={handleChange}
+                value={values.teamLeader}
+                variant="outlined"
+              />
+            </Grid>
+            {/* <Grid
               item
               md={6}
               xs={12}
@@ -167,23 +254,7 @@ const AccountDetails = props => {
                   </option>
                 ))}
               </TextField>
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Country"
-                margin="dense"
-                name="country"
-                onChange={handleChange}
-                required
-                value={values.country}
-                variant="outlined"
-              />
-            </Grid>
+            </Grid> */}
           </Grid>
         </CardContent>
         <Divider />

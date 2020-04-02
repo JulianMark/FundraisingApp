@@ -19,7 +19,7 @@ const Proofboard = () => {
         container
         spacing={4}
       >
-        <Grid
+        {/* <Grid
           item
           lg={4}
           md={6}
@@ -27,7 +27,7 @@ const Proofboard = () => {
           xs={12}
         >
           <AccountProfile />
-        </Grid>
+        </Grid> */}
         <Grid
           item
           lg={8}
