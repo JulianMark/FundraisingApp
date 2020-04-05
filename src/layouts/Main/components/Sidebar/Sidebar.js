@@ -61,6 +61,11 @@ const Sidebar = props => {
       icon: <EmojiObjectsIcon />
     },
     {
+      title: 'Pruebas Formulario',
+      href: '/prooftext',
+      icon: <SettingsIcon />
+    },
+    {
       title: 'Settings',
       href: '/settings',
       icon: <SettingsIcon />

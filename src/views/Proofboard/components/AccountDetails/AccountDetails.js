@@ -14,8 +14,14 @@ import {
   TextField
 } from '@material-ui/core';
 
-import { obtainLocationList, obtainIdLocation } from '../../../../redux/reducers/campaignreducer';
-import { obtainLocations, changeLocation } from '../../../../redux/actions/campaignActions';
+import { obtainLocationList, obtainIdLocation,
+   obtainOscList, obtainIdOsc, 
+   obtainCampaignTypesList, obtainIdCampaignType, 
+   obtainCampaignModalitiesList, obtainIdCampaignModalityId } from '../../../../redux/reducers/campaignreducer';
+import { obtainLocations, changeLocation,
+   obtainOscs, changeOsc, 
+   obtainCampaignTypes, changeCampaignType, 
+   obtainCampaignModalities, changeCampaignModality } from '../../../../redux/actions/campaignActions';
 
 const useStyles = makeStyles(() => ({
   root: {}
@@ -28,6 +34,12 @@ const AccountDetails = props => {
 
   const locations = useSelector(obtainLocationList);
   const locationId = useSelector(obtainIdLocation);
+  const oscs = useSelector(obtainOscList);
+  const oscId = useSelector(obtainIdOsc);
+  const campaignTypes = useSelector(obtainCampaignTypesList);
+  const campaingTypeId = useSelector(obtainIdCampaignType);
+  const campaignModalities = useSelector(obtainCampaignModalitiesList);
+  const campaignModalityId = useSelector(obtainIdCampaignModalityId);
 
   const dispatch = useDispatch();
   
@@ -43,9 +55,58 @@ const AccountDetails = props => {
     }
   }, [dispatch, locationId, locations]);
 
+  React.useEffect(() => {
+    if (!oscs.length) {
+      dispatch(obtainOscs());
+    }
+    console.log(oscs)
+  }, [oscs, dispatch]);
+
+  React.useEffect(() => {
+    if (oscs.length && oscId  === "") {
+        dispatch(obtainOscs(oscs[0].id));
+    }
+  }, [dispatch, oscId , oscs]);
+
+  React.useEffect(() => {
+    if (!campaignTypes.length) {
+      dispatch(obtainCampaignTypes());
+    }
+  }, [campaignTypes, dispatch]);
+
+  React.useEffect(() => {
+    if (campaignTypes.length && campaingTypeId === "") {
+        dispatch(obtainCampaignTypes(campaignTypes[0].id));
+    }
+  }, [dispatch, campaingTypeId, campaignTypes]);
+
+  React.useEffect(() => {
+    if (!campaignModalities.length) {
+      dispatch(obtainCampaignModalities());
+    }
+  }, [campaignModalities, dispatch]);
+
+  React.useEffect(() => {
+    if (campaignModalities.length && campaignModalityId === "") {
+        dispatch(obtainCampaignModalities(campaignModalities[0].id));
+    }
+  }, [dispatch, campaignModalityId, campaignModalities]);
+
   const handleLocationChange = event => {
     dispatch(changeLocation(event.target.value));
   } 
+
+  const handleOscChange = event => {
+    dispatch(changeOsc(event.target.value));
+  } 
+
+  const handleCampaignTypeChange = event => {
+    dispatch(changeCampaignType(event.target.value));
+  }
+
+  const handleCampaignModalityChange = event => {
+    dispatch(changeCampaignModality(event.target.value));
+  }
 
   const [values, setValues] = useState({
     location: 'Cordoba',
@@ -120,15 +181,27 @@ const AccountDetails = props => {
             >
               <TextField
                 fullWidth
-                helperText="Seleccione la OSC"
+                helperText="Seleccione OSC"
                 label="OSC"
                 margin="dense"
-                name="osc"
-                onChange={handleChange}
+                name="OSC"
+                onChange={handleOscChange}
                 required
-                value={values.osc}
+                select
+                // eslint-disable-next-line react/jsx-sort-props
+                SelectProps={{ native: true }}
+                value={oscId}
                 variant="outlined"
-              />
+              >
+                {oscs.map(option => (
+                  <option
+                    key={option.id}
+                    value={option.description}
+                  >
+                    {option.description}
+                  </option>
+                ))}
+              </TextField>
             </Grid>
             <Grid
               item
@@ -137,31 +210,56 @@ const AccountDetails = props => {
             >
               <TextField
                 fullWidth
-                helperText= "Seleccione tipo de campaña"
+                helperText="Seleccione tipo de campaña"
                 label="Tipo de campaña"
                 margin="dense"
                 name="campaignType"
-                onChange={handleChange}
+                onChange={handleCampaignTypeChange}
                 required
-                value={values.campaignType}
+                select
+                // eslint-disable-next-line react/jsx-sort-props
+                SelectProps={{ native: true }}
+                value={campaingTypeId}
                 variant="outlined"
-              />
+              >
+                {campaignTypes.map(option => (
+                  <option
+                    key={option.id}
+                    value={option.description}
+                  >
+                    {option.description}
+                  </option>
+                ))}
+              </TextField>
             </Grid>
             <Grid
               item
-              md={6}
+              md={4}
               xs={12}
             >
               <TextField
                 fullWidth
-                helperText= "Seleccione modalidad de campaña"
+                helperText="Seleccione modalidad de campaña"
                 label="Modalidad de campaña"
                 margin="dense"
                 name="campaignModality"
-                onChange={handleChange}
-                value={values.campaignModality}
+                onChange={handleCampaignModalityChange}
+                required
+                select
+                // eslint-disable-next-line react/jsx-sort-props
+                SelectProps={{ native: true }}
+                value={campaignModalityId}
                 variant="outlined"
-              />
+              >
+                {campaignModalities.map(option => (
+                  <option
+                    key={option.id}
+                    value={option.description}
+                  >
+                    {option.description}
+                  </option>
+                ))}
+              </TextField>
             </Grid>
             <Grid
               item

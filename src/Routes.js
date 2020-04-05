@@ -8,6 +8,8 @@ import {
   Dashboard as DashboardView,
   Proofboard as ProofboardView,
   Donation as DonationView,
+  ProofText as ProofTextVier,
+  ProofText,
   /* UserList as UserListView,
   Typography as TypographyView,
   Icons as IconsView,
@@ -43,6 +45,12 @@ const Routes = () => {
         exact
         layout={MainLayout}
         path="/donation"
+      />
+      <RouteWithLayout
+        component={ProofText}
+        exact
+        layout={MainLayout}
+        path="/prooftext"
       />
       <RouteWithLayout
         //component={ProductListView}
